@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdbool.h": "c",
+        "vector.h": "c"
+    },
+    "code-runner.runInTerminal": true
+}
