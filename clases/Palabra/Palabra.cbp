@@ -31,9 +31,20 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="main.c">
+		<Unit filename="Cadena.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Cadena.h" />
+		<Unit filename="Palabra.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Palabra.cbp" />
+		<Unit filename="Palabra.h" />
+		<Unit filename="Palabra.layout" />
+		<Unit filename="SecPal.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="SecPal.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
