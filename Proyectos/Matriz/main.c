@@ -17,9 +17,10 @@ int main()
     //     {13, 14, 15, 16}
     // };
     int col = COL;
+    int fil = FIL;
     // int (*matriz)[col] = malloc(sizeof(int) * FIL * col);
 
-    int** matriz = (int**)crearMatriz(FIL, col, sizeof(int));
+    int** matriz = (int**)crearMatriz(fil, col, sizeof(int));
 
     if(!matriz)
     {
@@ -27,23 +28,23 @@ int main()
         return 1;
     }
 
-    cargarMatriz(FIL, COL, matriz);
+    cargarMatriz(fil, col, matriz);
 
-    mostrarMatriz(FIL, COL, matriz);
+    mostrarMatriz(fil, col, matriz);
 
-    int sumaDP = sumaDiagonalPrincipal(COL, matriz);
+    int sumaDP = sumaDiagonalPrincipal(col, matriz);
     printf("Suma DP: %d\n", sumaDP);
 
-    int sumaDS = sumaDiagonalSecundaria(COL, matriz);
+    int sumaDS = sumaDiagonalSecundaria(col, matriz);
     printf("Suma DS: %d\n", sumaDS);
 
-    int sumaTriInfDP = sumaTriangInfDP(COL, matriz);
+    int sumaTriInfDP = sumaTriangInfDP(col, matriz);
     printf("Suma TriangInfDP: %d\n", sumaTriInfDP);
     
-    int sumaTriSupDS = sumaTriangSupDS(COL, matriz);
+    int sumaTriSupDS = sumaTriangSupDS(col, matriz);
     printf("Suma TriangSupDS: %d\n", sumaTriSupDS);
 
-    destruirMatriz((void**)matriz, FIL);
+    destruirMatriz((void**)matriz, fil);
 
     return 0;
 }
