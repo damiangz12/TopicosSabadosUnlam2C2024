@@ -5,12 +5,17 @@
       "includePath": [
         "${workspaceFolder}/**"
       ],
-      "compilerPath": "D:\\Installed_Apps\\CodeBlocks\\MinGW\\bin\\gcc.exe",
-      "cStandard": "c11",
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "compilerPath": "C:/mingw64/bin/gcc.exe",
+      "cStandard": "${default}",
       "cppStandard": "${default}",
       "intelliSenseMode": "windows-gcc-x64",
       "compilerArgs": [
-        ""
+        "-Wall -fcommon"
       ]
     }
   ],

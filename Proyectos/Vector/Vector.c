@@ -4,23 +4,21 @@
 #include <string.h>
 #include "Vector.h"
 
-
-bool redimensionarVector(Vector* vector, float factor);
-void ordenarBurbujeo(Vector* vector);
-void ordenarSeleccion(Vector* vector, Cmp cmp);
-void ordenarInsercion(Vector* vector);
-void intercambiar(void* a, void* b, size_t tamElem);
-const void* buscarMenor(const void* ini, const void* fin, size_t tamElem, Cmp cmp);
-
+bool redimensionarVector(Vector *vector, float factor);
+void ordenarBurbujeo(Vector *vector);
+void ordenarSeleccion(Vector *vector, Cmp cmp);
+void ordenarInsercion(Vector *vector);
+void intercambiar(void *a, void *b, size_t tamElem);
+const void *buscarMenor(const void *ini, const void *fin, size_t tamElem, Cmp cmp);
 
 // Primitivas
 
-bool vectorCrear(Vector* vector, size_t tamElem)
+bool vectorCrear(Vector *vector, size_t tamElem)
 {
     vector->ce = 0;
     vector->vec = malloc(CAP_INI * tamElem);
 
-    if(vector->vec == NULL)
+    if (vector->vec == NULL)
     {
         vector->cap = 0;
         return false;
@@ -32,33 +30,32 @@ bool vectorCrear(Vector* vector, size_t tamElem)
     return true;
 }
 
-
-int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
+int vectorOrdInsertar(Vector *vector, const void *elem, Cmp cmp)
 {
-    if(vector->ce == vector->cap)
+    if (vector->ce == vector->cap)
     {
-        if(!redimensionarVector(vector, FACTOR_INCR))
+        if (!redimensionarVector(vector, FACTOR_INCR))
         {
             return VEC_LLENO;
         }
     }
 
-    void* posIns = vector->vec;
-    void* ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *posIns = vector->vec;
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
 
-    while(posIns <= ult && cmp(elem, posIns) > 0)
+    while (posIns <= ult && cmp(elem, posIns) > 0)
     {
         posIns += vector->tamElem;
     }
 
-    if(posIns <= ult && cmp(elem, posIns) == 0)
+    if (posIns <= ult && cmp(elem, posIns) == 0)
     {
         return DUPLICADO;
     }
 
-    for(void* i = ult; i >= posIns; i -= vector->tamElem)
+    for (void *i = ult; i >= posIns; i -= vector->tamElem)
     {
-       memcpy(i + vector->tamElem, i, vector->tamElem); // *(i + 1) = *i;
+        memcpy(i + vector->tamElem, i, vector->tamElem); // *(i + 1) = *i;
     }
 
     memcpy(posIns, elem, vector->tamElem);
@@ -68,49 +65,47 @@ int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp)
     return TODO_OK;
 }
 
-
-int vectorInsertarAlFinal(Vector* vector, const void* elem)
+int vectorInsertarAlFinal(Vector *vector, const void *elem)
 {
-    if(vector->ce == vector->cap)
+    if (vector->ce == vector->cap)
     {
-        if(!redimensionarVector(vector, FACTOR_INCR))
+        if (!redimensionarVector(vector, FACTOR_INCR))
         {
             return VEC_LLENO;
         }
     }
 
-    void* ult = vector->vec + (vector->ce - 1) * vector->tamElem;
-    void* posIns = ult + vector->tamElem;
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *posIns = ult + vector->tamElem;
     memcpy(posIns, elem, vector->tamElem);
     vector->ce++;
     return TODO_OK;
 }
 
-
-int vectorOrdBuscar(const Vector* vector, void* elem, Cmp cmp)
+int vectorOrdBuscar(const Vector *vector, void *elem, Cmp cmp)
 {
-    void* li = vector->vec;
-    void* ls = vector->vec + (vector->ce - 1) * vector->tamElem;
-    void* m;
+    void *li = vector->vec;
+    void *ls = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *m;
     int comp;
 
-    while(li < ls)
+    while (li < ls)
     {
         m = li + ((ls - li) / vector->tamElem / 2) * vector->tamElem;
         comp = cmp(elem, m);
 
-        if(comp == 0)
+        if (comp == 0)
         {
             memcpy(elem, m, vector->tamElem);
             return (m - vector->vec) / vector->tamElem;
         }
 
-        if(comp < 0)
+        if (comp < 0)
         {
             ls = m - vector->tamElem;
         }
 
-        if(comp > 0)
+        if (comp > 0)
         {
             li = m + vector->tamElem;
         }
@@ -119,37 +114,36 @@ int vectorOrdBuscar(const Vector* vector, void* elem, Cmp cmp)
     return -1;
 }
 
-
-bool vectorOrdEliminarElem(Vector* vector, void* elem, Cmp cmp)
+bool vectorOrdEliminarElem(Vector *vector, void *elem, Cmp cmp)
 {
-    if(vector->ce == 0)
+    if (vector->ce == 0)
     {
         return false;
     }
 
-    void* posElim = vector->vec;
-    void* ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *posElim = vector->vec;
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
 
-    while(posElim <= ult && cmp(elem, posElim) > 0)
+    while (posElim <= ult && cmp(elem, posElim) > 0)
     {
         posElim += vector->tamElem;
     }
 
-    if(posElim > ult || cmp(elem, posElim) < 0)
+    if (posElim > ult || cmp(elem, posElim) < 0)
     {
         return false;
     }
 
     memcpy(elem, posElim, vector->tamElem);
 
-    for(void* i = posElim; i < ult; i += vector->tamElem)
+    for (void *i = posElim; i < ult; i += vector->tamElem)
     {
         memcpy(i, i + vector->tamElem, vector->tamElem);
     }
 
     vector->ce--;
 
-    if((float)vector->ce / vector->cap <= FACTOR_OCUP)
+    if ((float)vector->ce / vector->cap <= FACTOR_OCUP)
     {
         redimensionarVector(vector, FACTOR_DECR);
     }
@@ -157,8 +151,7 @@ bool vectorOrdEliminarElem(Vector* vector, void* elem, Cmp cmp)
     return true;
 }
 
-
-void vectorEliminar(Vector* vector)
+void vectorEliminar(Vector *vector)
 {
     free(vector->vec);
     vector->vec = NULL;
@@ -166,14 +159,12 @@ void vectorEliminar(Vector* vector)
     vector->cap = 0;
 }
 
-
-void vectorVaciar(Vector* vector)
+void vectorVaciar(Vector *vector)
 {
     vector->vec = realloc(vector->vec, CAP_INI * vector->tamElem);
     vector->ce = 0;
     vector->cap = CAP_INI;
 }
-
 
 // void vectorMostrar(const Vector* vector)
 // {
@@ -185,32 +176,30 @@ void vectorVaciar(Vector* vector)
 //     }
 // }
 
-
-void vectorRecorrer(const Vector* vector, Accion accion, void* datosA)
+void vectorRecorrer(const Vector *vector, Accion accion, void *datosA)
 {
-    void* ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
 
-    for(void* i = vector->vec; i <= ult; i += vector->tamElem)
+    for (void *i = vector->vec; i <= ult; i += vector->tamElem)
     {
         accion((i - vector->vec) / vector->tamElem, i, datosA);
     }
 }
 
-
 // Funciones privadas
 
-bool redimensionarVector(Vector* vector, float factor)
+bool redimensionarVector(Vector *vector, float factor)
 {
     size_t nCap = vector->cap * factor;
 
-    if(nCap < CAP_INI)
+    if (nCap < CAP_INI)
     {
         return false;
     }
 
-    int* nVec = realloc(vector->vec, nCap * vector->tamElem);
+    int *nVec = realloc(vector->vec, nCap * vector->tamElem);
 
-    if(!nVec)
+    if (!nVec)
     {
         return false;
     }
@@ -224,25 +213,23 @@ bool redimensionarVector(Vector* vector, float factor)
     return true;
 }
 
-
-void vectorOrdenar(Vector* vector, int metodo, Cmp cmp)
+void vectorOrdenar(Vector *vector, int metodo, Cmp cmp)
 {
-    switch(metodo)
+    switch (metodo)
     {
-//         case BURBUJEO:
-//             ordenarBurbujeo(vector);
-//             break;
+        //         case BURBUJEO:
+        //             ordenarBurbujeo(vector);
+        //             break;
 
-        case SELECCION:
-            ordenarSeleccion(vector, cmp);
-            break;
+    case SELECCION:
+        ordenarSeleccion(vector, cmp);
+        break;
 
-//         case INSERCION:
-//             ordenarInsercion(vector);
-//             break;
+        //         case INSERCION:
+        //             ordenarInsercion(vector);
+        //             break;
     }
 }
-
 
 // void ordenarBurbujeo(Vector* vector)
 // {
@@ -260,27 +247,25 @@ void vectorOrdenar(Vector* vector, int metodo, Cmp cmp)
 //     }
 // }
 
-
-void ordenarSeleccion(Vector* vector, Cmp cmp)
+void ordenarSeleccion(Vector *vector, Cmp cmp)
 {
-    void* ult = vector->vec + (vector->ce - 1) * vector->tamElem;
-    void* m = NULL;
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *m = NULL;
 
-    for(void* i = vector->vec; i < ult; i += vector->tamElem)
+    for (void *i = vector->vec; i < ult; i += vector->tamElem)
     {
-        m = (void*)buscarMenor(i, ult, vector->tamElem, cmp);
+        m = (void *)buscarMenor(i, ult, vector->tamElem, cmp);
         intercambiar(m, i, vector->tamElem);
     }
 }
 
-
-const void* buscarMenor(const void* ini, const void* fin, size_t tamElem, Cmp cmp)
+const void *buscarMenor(const void *ini, const void *fin, size_t tamElem, Cmp cmp)
 {
-    const void* m = ini;
+    const void *m = ini;
 
-    for(const void* j = ini + tamElem; j <= fin; j += tamElem)
+    for (const void *j = ini + tamElem; j <= fin; j += tamElem)
     {
-        if(cmp(j, m) < 0)
+        if (cmp(j, m) < 0)
         {
             m = j;
         }
@@ -288,7 +273,6 @@ const void* buscarMenor(const void* ini, const void* fin, size_t tamElem, Cmp cm
 
     return m;
 }
-
 
 // void ordenarInsercion(Vector* vector)
 // {
@@ -309,14 +293,11 @@ const void* buscarMenor(const void* ini, const void* fin, size_t tamElem, Cmp cm
 //     }
 // }
 
-
-void intercambiar(void* a, void* b, size_t tamElem)
+void intercambiar(void *a, void *b, size_t tamElem)
 {
-    void* aTemp = malloc(tamElem);
+    void *aTemp = malloc(tamElem);
     memcpy(aTemp, a, tamElem);
     memcpy(a, b, tamElem);
     memcpy(b, aTemp, tamElem);
     free(aTemp);
 }
-
-

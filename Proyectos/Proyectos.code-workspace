@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "Vector"
+		},
+		{
+			"path": "Matriz"
+		},
+		{
+			"path": "Palabra"
+		},
+		{
+			"path": "Punteros"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stddef.h": "c",
+			"stdbool.h": "c",
+			"stdlib.h": "c"
+		}
+	}
+}

@@ -3,7 +3,7 @@
 
 void secPalCrear(SecPal* sec, const char* cad)
 {
-    sec->cursor = cad;
+    sec->cursor = (char*)cad;
     sec->finSec = false;
 }
 
@@ -38,7 +38,7 @@ bool secPalLeer(SecPal* sec, Palabra* pal)
 
 void secPalEscribir(SecPal* sec, const Palabra* pal)
 {
-    char* actPal = pal->vPal;
+    char* actPal = (char*)pal->vPal;
     while(*actPal)
     {
         *(sec->cursor) = *actPal;

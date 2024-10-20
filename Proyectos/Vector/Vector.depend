@@ -13,3 +13,20 @@
 	<stdlib.h>
 	"Vector.h"
 
+1729387789 source:d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\vector\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"Vector.h"
+
+1729387495 d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\vector\vector.h
+	<stddef.h>
+	<stdbool.h>
+
+1729439148 source:d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\vector\vector.c
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	<string.h>
+	"Vector.h"
+
