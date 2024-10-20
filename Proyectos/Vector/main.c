@@ -43,7 +43,7 @@ int main()
 #endif
 
 	time_t iniT = time(NULL);
-	vectorOrdenar(&miVec, SELECCION, cmpInt);
+	vectorOrdenar(&miVec, BURBUJEO, cmpInt);
 	time_t finT = time(NULL);
 
 #if CANT_ELEM <= 100

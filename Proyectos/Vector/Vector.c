@@ -5,7 +5,7 @@
 #include "Vector.h"
 
 bool redimensionarVector(Vector *vector, float factor);
-void ordenarBurbujeo(Vector *vector);
+void ordenarBurbujeo(Vector *vector, Cmp cmp);
 void ordenarSeleccion(Vector *vector, Cmp cmp);
 void ordenarInsercion(Vector *vector);
 void intercambiar(void *a, void *b, size_t tamElem);
@@ -217,9 +217,9 @@ void vectorOrdenar(Vector *vector, int metodo, Cmp cmp)
 {
     switch (metodo)
     {
-        //         case BURBUJEO:
-        //             ordenarBurbujeo(vector);
-        //             break;
+    case BURBUJEO:
+        ordenarBurbujeo(vector, cmp);
+        break;
 
     case SELECCION:
         ordenarSeleccion(vector, cmp);
@@ -231,21 +231,20 @@ void vectorOrdenar(Vector *vector, int metodo, Cmp cmp)
     }
 }
 
-// void ordenarBurbujeo(Vector* vector)
-// {
-//     int* ult = vector->vec + vector->ce - 1;
-
-//     for(int i = 1, *limJ = ult - 1; i < vector->ce; i++, limJ--)
-//     {
-//         for(int* j = vector->vec; j <= limJ; j++)
-//         {
-//             if(*j > *(j + 1))
-//             {
-//                 intercambiar(j, j + 1);
-//             }
-//         }
-//     }
-// }
+void ordenarBurbujeo(Vector *vector, Cmp cmp)
+{
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    for (void *i = vector->vec + vector->tamElem, *limJ = ult - vector->tamElem; i < vector->vec + (vector->ce * vector->tamElem); i += vector->tamElem, limJ -= vector->tamElem)
+    {
+        for (void *j = vector->vec; j <= limJ; j += vector->tamElem)
+        {
+            if (cmp(j, j + vector->tamElem) > 0)
+            {
+                intercambiar(j, j + vector->tamElem, vector->tamElem);
+            }
+        }
+    }
+}
 
 void ordenarSeleccion(Vector *vector, Cmp cmp)
 {
