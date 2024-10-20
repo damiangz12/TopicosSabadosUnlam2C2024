@@ -7,15 +7,20 @@
 #define CANT_ELEM 100000
 
 
+int cmpInt(const void* e1, const void* e2);
+void mostrarInt(int pos, void* e, void* datosA);
+void cargarVectorRandom(Vector* vector, int ce);
+
+
 int main()
 {
 	Vector miVec;
-	vectorCrear(&miVec);
-	// int retIns;
+	vectorCrear(&miVec, sizeof(int));
+	//int retIns;
 
 	// for(int i = CANT_ELEM; i >= 1; i--)
 	// {
-	// 	retIns = vectorOrdInsertar(&miVec, i);
+	// 	retIns = vectorOrdInsertar(&miVec, &i, cmpInt);
 
 	// 	if(retIns != TODO_OK)
 	// 	{
@@ -23,7 +28,7 @@ int main()
 	// 	}
 	// }
 
-	// vectorMostrar(&miVec);
+	// vectorRecorrer(&miVec, mostrarInt, NULL);
 
 	// for(int i = 1; i <= CANT_ELEM; i++)
 	// {
@@ -34,21 +39,50 @@ int main()
 
 #if CANT_ELEM <= 100
 	puts("Antes de ordenar:");
-	vectorMostrar(&miVec);
+	vectorRecorrer(&miVec, mostrarInt, NULL);
 #endif
 
 	time_t iniT = time(NULL);
-	vectorOrdenar(&miVec, INSERCION);
+	vectorOrdenar(&miVec, SELECCION, cmpInt);
 	time_t finT = time(NULL);
 
 #if CANT_ELEM <= 100
 	puts("\nDespues de ordenar:");
-	vectorMostrar(&miVec);
+	vectorRecorrer(&miVec, mostrarInt, NULL);
 #endif
 
-	printf("\nTiempo de ejecucion: %Id\n", finT - iniT);
+	printf("\nTiempo de ejecucion: %llu\n", finT - iniT);
 
 	vectorEliminar(&miVec);
 
     return 0;
+}
+
+
+int cmpInt(const void* e1, const void* e2)
+{
+	const int* i1 = e1;
+	const int* i2 = e2;
+
+	return *i1 - *i2;
+}
+
+
+void mostrarInt(int pos, void* e, void* datosA)
+{
+	int* i = e;
+	printf("[%d]: %d\n", pos, *i);
+}
+
+
+void cargarVectorRandom(Vector* vector, int ce)
+{
+	int rnd;
+    srand(time(NULL));
+
+    for(int i = 0; i < ce; i++)
+    {
+		rnd = rand() % 100;
+        vectorInsertarAlFinal(vector, &rnd);
+    }
 }
