@@ -7,7 +7,7 @@
 bool redimensionarVector(Vector *vector, float factor);
 void ordenarBurbujeo(Vector *vector, Cmp cmp);
 void ordenarSeleccion(Vector *vector, Cmp cmp);
-void ordenarInsercion(Vector *vector);
+void ordenarInsercion(Vector *vector, Cmp cmp);
 void intercambiar(void *a, void *b, size_t tamElem);
 const void *buscarMenor(const void *ini, const void *fin, size_t tamElem, Cmp cmp);
 
@@ -151,6 +151,22 @@ bool vectorOrdEliminarElem(Vector *vector, void *elem, Cmp cmp)
     return true;
 }
 
+int validarOrdenVector(Vector *vector, Cmp cmp)
+{
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    for (void *i = vector->vec; i < ult; i += vector->tamElem)
+    {
+        if (cmp(i, i + vector->tamElem) > 0)
+        {
+            printf("ERROR el vector no esta ordenado\n");
+            return 0;
+        }
+    }
+
+    printf("Vector ordenado\n");
+    return 1;
+}
+
 void vectorEliminar(Vector *vector)
 {
     free(vector->vec);
@@ -225,9 +241,9 @@ void vectorOrdenar(Vector *vector, int metodo, Cmp cmp)
         ordenarSeleccion(vector, cmp);
         break;
 
-        //         case INSERCION:
-        //             ordenarInsercion(vector);
-        //             break;
+    case INSERCION:
+        ordenarInsercion(vector, cmp);
+        break;
     }
 }
 
@@ -273,24 +289,27 @@ const void *buscarMenor(const void *ini, const void *fin, size_t tamElem, Cmp cm
     return m;
 }
 
-// void ordenarInsercion(Vector* vector)
-// {
-//     int* ult = vector->vec + vector->ce - 1;
-//     int elemAIns;
+void ordenarInsercion(Vector *vector, Cmp cmp)
+{
+    void *ult = vector->vec + (vector->ce - 1) * vector->tamElem;
+    void *elemAIns = malloc(vector->tamElem);
 
-//     for(int* i = vector->vec + 1; i <= ult; i++)
-//     {
-//         elemAIns = *i;
+    for (void *i = vector->vec + vector->tamElem; i <= ult; i += vector->tamElem)
+    {
+        memcpy(elemAIns, i, vector->tamElem);
 
-//         int* j;
-//         for(j = i - 1; j >= vector->vec && elemAIns < *j; j--)
-//         {
-//             *(j + 1) = *j;
-//         }
+        void *j;
+        for (j = i - vector->tamElem; j >= vector->vec && cmp(elemAIns, j) < 0; j -= vector->tamElem)
+        {
 
-//         *(j + 1) = elemAIns;
-//     }
-// }
+            memcpy(j + vector->tamElem, j, vector->tamElem);
+        }
+
+        memcpy(j + vector->tamElem, elemAIns, vector->tamElem);
+    }
+
+    free(elemAIns);
+}
 
 void intercambiar(void *a, void *b, size_t tamElem)
 {

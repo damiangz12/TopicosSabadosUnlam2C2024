@@ -42,6 +42,6 @@ void vectorVaciar(Vector* vector); // realloc
 void vectorMostrar(const Vector* vector);
 void vectorRecorrer(const Vector* vector, Accion accion, void* datosA);
 void vectorOrdenar(Vector* vector, int metodo, Cmp cmp);
-
+int validarOrdenVector(Vector *vector, Cmp cmp);
 
 #endif // VECTOR_H
