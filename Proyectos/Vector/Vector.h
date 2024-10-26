@@ -20,23 +20,28 @@
 
 typedef struct
 {
-    int* vec;
+    void* vec;
     size_t ce;
     size_t cap;
+    size_t tamElem;
 }
 Vector;
 
 
-bool vectorCrear(Vector* vector); // malloc
-int vectorOrdInsertar(Vector* vector, int elem); // realloc
-int vectorInsertarAlFinal(Vector* vector, int elem);
-int vectorOrdBuscar(const Vector* vector, int elem);
-bool vectorOrdEliminarElem(Vector* vector, int elem); // realloc
+typedef int (*Cmp)(const void* e1, const void* e2);
+typedef void (*Accion)(int pos, void* e, void* datosA);
+
+
+bool vectorCrear(Vector* vector, size_t tamElem); // malloc
+int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp); // realloc
+int vectorInsertarAlFinal(Vector* vector, const void* elem);
+int vectorOrdBuscar(const Vector* vector, void* elem, Cmp cmp);
+bool vectorOrdEliminarElem(Vector* vector, void* elem, Cmp cmp); // realloc
 void vectorEliminar(Vector* vector); // free
 void vectorVaciar(Vector* vector); // realloc
 void vectorMostrar(const Vector* vector);
-void vectorOrdenar(Vector* vector, int metodo);
-void cargarVectorRandom(Vector* vector, int ce);
-
+void vectorRecorrer(const Vector* vector, Accion accion, void* datosA);
+void vectorOrdenar(Vector* vector, int metodo, Cmp cmp);
+int validarOrdenVector(Vector *vector, Cmp cmp);
 
 #endif // VECTOR_H
