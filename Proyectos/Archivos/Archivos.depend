@@ -1,0 +1,20 @@
+# depslib dependency file v1.0
+1729955937 source:d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\archivos\indice.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"Indice.h"
+
+1729953190 d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\archivos\indice.h
+	"../Vector/Vector.h"
+
+1729955014 d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\vector\vector.h
+	<stddef.h>
+	<stdbool.h>
+
+1729955961 source:d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\archivos\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"Indice.h"
+
