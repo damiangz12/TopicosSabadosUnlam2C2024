@@ -45,6 +45,7 @@ typedef void (*Accion)(int pos, void* e, void* datosA);
 
 
 bool vectorCrear(Vector* vector, size_t tamElem); // malloc
+bool vectorCrearDesdeArchivo(Vector* vector, size_t tamElem, const char* nomArch);
 int vectorOrdInsertar(Vector* vector, const void* elem, Cmp cmp); // realloc
 int vectorInsertarAlFinal(Vector* vector, const void* elem);
 int vectorOrdBuscar(const Vector* vector, void* elem, Cmp cmp);
