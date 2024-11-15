@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1731157670 source:d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\txt\main.c
+	<stdio.h>
+	<stdlib.h>
+	"Txt.h"
+
+1731156933 d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\txt\txt.h
+	<stdbool.h>
+
+1731157185 source:d:\unlam\programacion\cursadas\2024\2\09-6300\proyectos\txt\txt.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"Txt.h"
+
