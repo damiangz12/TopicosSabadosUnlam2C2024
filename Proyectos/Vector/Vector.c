@@ -30,6 +30,42 @@ bool vectorCrear(Vector *vector, size_t tamElem)
     return true;
 }
 
+
+bool vectorCrearDesdeArchivo(Vector* vector, size_t tamElem, const char* nomArch)
+{
+	FILE* arch = fopen(nomArch, "rb");
+
+    if(!arch)
+    {
+        return false;
+    }
+
+	fseek(arch, 0L, SEEK_END);
+	size_t tamArchBytes = ftell(arch);
+
+	vector->vec = malloc(tamArchBytes);
+
+	if(vector->vec == NULL)
+    {
+        vector->ce = 0;
+		vector->cap = 0;
+        return false;
+    }
+
+	size_t ce = tamArchBytes / tamElem;
+
+	rewind(arch);
+    fread(vector->vec, tamElem, ce, arch);
+
+    fclose(arch);
+
+	vector->cap = ce;
+	vector->ce = ce;
+	vector->tamElem = tamElem;
+
+    return true;
+}
+
 int vectorOrdInsertar(Vector *vector, const void *elem, Cmp cmp)
 {
     if (vector->ce == vector->cap)
@@ -318,4 +354,111 @@ void intercambiar(void *a, void *b, size_t tamElem)
     memcpy(a, b, tamElem);
     memcpy(b, aTemp, tamElem);
     free(aTemp);
+}
+
+
+int vectorGrabarEnArchivo(Vector* vector, const char* nomArch)
+{
+    FILE* arch = fopen(nomArch, "wb");
+
+    if(!arch)
+    {
+        return ERR_ARCHIVO;
+    }
+
+    fwrite(vector->vec, vector->tamElem, vector->ce, arch);
+
+    fclose(arch);
+
+    return TODO_OK;
+}
+
+
+// Iterador
+
+void vectorIteradorCrear(VectorIterador* it, Vector* v)
+{
+    it->pri = v->vec;
+    it->ult = v->vec + (v->ce - 1) * v->tamElem;
+    it->act = NULL;
+    it->finIter = true;
+    it->tamElem = v->tamElem;
+}
+
+
+void* vectorIteradorPrimero(VectorIterador* it)
+{
+    if(it->ult < it->pri)
+    {
+        return NULL;
+    }
+
+    it->act = it->pri;
+    it->finIter = false;
+
+    return it->act;
+}
+
+
+void* vectorIteradorUltimo(VectorIterador* it)
+{
+    if(it->ult < it->pri)
+    {
+        return NULL;
+    }
+
+    it->act = it->ult;
+    it->finIter = false;
+
+    return it->act;
+}
+
+
+void* vectorIteradorSiguiente(VectorIterador* it)
+{
+    if(!it->act)
+    {
+        return vectorIteradorPrimero(it);
+    }
+
+    if(it->act == it->ult)
+    {
+        it->finIter = true;
+        return NULL;
+    }
+
+    it->act += it->tamElem;
+
+    return it->act;
+}
+
+
+void* vectorIteradorAnterior(VectorIterador* it)
+{
+    if(!it->act)
+    {
+        return vectorIteradorUltimo(it);
+    }
+
+    if(it->act == it->pri)
+    {
+        it->finIter = true;
+        return NULL;
+    }
+
+    it->act -= it->tamElem;
+
+    return it->act;
+}
+
+
+void* vectorIteradorActual(VectorIterador* it)
+{
+    return it->act;
+}
+
+
+bool vectorIteradorFin(VectorIterador* it)
+{
+    return it->finIter;
 }

@@ -12,6 +12,7 @@
 #define TODO_OK 0
 #define VEC_LLENO 1
 #define DUPLICADO 2
+#define ERR_ARCHIVO 3
 
 #define BURBUJEO 1
 #define SELECCION 2
@@ -26,6 +27,17 @@ typedef struct
     size_t tamElem;
 }
 Vector;
+
+
+typedef struct
+{
+    void* pri;
+    void* ult;
+    void* act;
+    bool finIter;
+    size_t tamElem;
+}
+VectorIterador;
 
 
 typedef int (*Cmp)(const void* e1, const void* e2);
@@ -43,5 +55,16 @@ void vectorMostrar(const Vector* vector);
 void vectorRecorrer(const Vector* vector, Accion accion, void* datosA);
 void vectorOrdenar(Vector* vector, int metodo, Cmp cmp);
 int validarOrdenVector(Vector *vector, Cmp cmp);
+int vectorGrabarEnArchivo(Vector* vector, const char* nomArch);
+
+// Iterador
+
+void vectorIteradorCrear(VectorIterador* it, Vector* v);
+void* vectorIteradorPrimero(VectorIterador* it);
+void* vectorIteradorUltimo(VectorIterador* it);
+void* vectorIteradorSiguiente(VectorIterador* it);
+void* vectorIteradorAnterior(VectorIterador* it);
+void* vectorIteradorActual(VectorIterador* it);
+bool vectorIteradorFin(VectorIterador* it);
 
 #endif // VECTOR_H
