@@ -48,7 +48,7 @@ int main()
 	vectorRecorrer(&miVec, mostrarInt, NULL);
 #endif
 
-	printf("\nTiempo de ejecucion: %llu\n", finT - iniT);
+	printf("\nTiempo de ejecucion: %ld\n", finT - iniT);
 
 	validarOrdenVector(&miVec, cmpInt);
 

@@ -258,7 +258,7 @@ bool redimensionarVector(Vector *vector, float factor)
 
     vector->vec = nVec;
 
-    printf("Redimension de %llu a %llu\n", vector->cap, nCap);
+    printf("Redimension de %d a %d\n", vector->cap, nCap);
 
     vector->cap = nCap;
 

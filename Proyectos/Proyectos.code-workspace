@@ -18,6 +18,9 @@
 			"stddef.h": "c",
 			"stdbool.h": "c",
 			"stdlib.h": "c"
-		}
+		},
+		"C_Cpp_Runner.warnings": [
+			"-Wall"
+		]
 	}
 }
