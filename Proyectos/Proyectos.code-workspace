@@ -11,6 +11,12 @@
 		},
 		{
 			"path": "Punteros"
+		},
+		{
+			"path": "Archivos"
+		},
+		{
+			"path": "Txt"
 		}
 	],
 	"settings": {

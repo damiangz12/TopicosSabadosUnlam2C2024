@@ -18,3 +18,29 @@
 	<stdlib.h>
 	"Indice.h"
 
+1731155136 source:d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\archivos\indice.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"Indice.h"
+
+1731885525 d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\archivos\indice.h
+	"../Vector/Vector.h"
+
+1731670814 d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\vector\vector.h
+	<stddef.h>
+	<stdbool.h>
+
+1731155138 source:d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\archivos\main.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"Indice.h"
+
+1731794388 source:d:\damian\unlam\topicos de programacion\repos\topicossabadosunlam2c2024\proyectos\vector\vector.c
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	<string.h>
+	"Vector.h"
+

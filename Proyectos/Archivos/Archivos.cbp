@@ -24,6 +24,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="Productos.dat 10" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -35,6 +36,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../Vector/Vector.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Vector/Vector.h" />
 		<Unit filename="Indice.c">
 			<Option compilerVar="CC" />
 		</Unit>
